@@ -1,6 +1,12 @@
 package com.hugonavarro.tema4gradle;
 
+import dev.langchain4j.data.message.AiMessage;
+import dev.langchain4j.data.message.ChatMessage;
+import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +19,17 @@ public class Main {
                 .modelName("gemma:2b")
                 .build();
 
-        String respuesta = model.chat("Cuéntame un chiste");
-        System.out.println(respuesta);
+        List<ChatMessage> history = new ArrayList<>();
+        // Interacción 1
+        history.add(new UserMessage("Hola, me llamo Hugo"));
+        AiMessage respuesta = model.chat(history).aiMessage();
+        history.add(respuesta);
+
+        // Interacción 2
+        history.add(new UserMessage("¿Recuerdas cómo me llamo?"));
+        respuesta = model.chat(history).aiMessage();
+        history.add(respuesta);
+
+        System.out.println(respuesta.text());
     }
 }
