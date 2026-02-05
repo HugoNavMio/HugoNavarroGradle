@@ -1,5 +1,10 @@
 plugins {
     id("java")
+    application
+}
+
+application {
+    mainClass.set("com.hugonavarro.tema4gradle.Main")
 }
 
 group = "com.hugonavarro.tema4gradle"
