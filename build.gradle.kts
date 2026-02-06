@@ -25,3 +25,18 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register<Exec>("ollamaVersion") {
+    commandLine("ollama", "--version")
+}
+
+tasks.register<Exec>("ollamaPs") {
+    commandLine("ollama", "ps")
+}
+
+tasks.register("llmInfo") {
+    dependsOn("ollamaVersion", "ollamaPs")
+    doLast {
+        println("Demo finalizada")
+    }
+}
